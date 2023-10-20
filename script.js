@@ -1,4 +1,5 @@
 // https://jsonplaceholder.typicode.com/guide/
+const articleContainer = document.querySelector("main")
 
 async function downloadPosts(page = 1) {
   const postsURL = `https://jsonplaceholder.typicode.com/posts?_page=${page}`;
@@ -44,3 +45,18 @@ for (const detail of details) {
 
 const posts = await downloadPosts();
 console.log(posts);
+
+
+posts.forEach(post => {
+  console.log(post.userId)
+  let postBody = post.body.replaceAll(/\n/g, "<br>");
+  articleContainer.innerHTML += 
+  `<article data-post-id=${post.id}>
+    <h2>${post.title}</h2>
+    <aside>
+      <span>${getUserName(post.userId)}</span>
+    </aside>
+      ${postBody}
+   </article>`
+});
+
